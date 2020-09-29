@@ -37,7 +37,7 @@ services:
       networks:
          - app-tier
       ports:
-         - "80:80"
+         - "5000:5000"
          - "443:443"
       volumes:
          - ./nginx/sites/:/opt/bitnami/nginx/conf/server_blocks
