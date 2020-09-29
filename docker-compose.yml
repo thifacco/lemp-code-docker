@@ -1,0 +1,57 @@
+# ./docker-compose.yml
+version: '2'
+# maintainer: TIAGO FACCO <thifacco@gmail.com>
+
+### Networks setup ######################################################
+
+networks: 
+   app-tier:
+      driver: bridge
+
+### Volumes setup ######################################################
+
+volumes: 
+   phpfpm:
+   nginx:
+   mysql:
+
+### Volumes setup ######################################################
+
+services:
+
+### PHP-FPM ############################################################
+
+   phpfpm:
+      image: 'bitnami/php-fpm:latest'
+      networks:
+         - app-tier
+      volumes:
+         - ../:/app
+
+### NGINX Server #######################################################
+   
+   nginx:
+      image: 'bitnami/nginx:latest'
+      depends_on:
+         - phpfpm
+      networks:
+         - app-tier
+      ports:
+         - "80:80"
+         - "443:443"
+      volumes:
+         - ./nginx/sites/:/opt/bitnami/nginx/conf/server_blocks
+
+### MYSQL Database #####################################################
+   
+   mysql:
+      image: 'bitnami/mysql:latest'
+      ports:
+         - "3306:3306"
+      volumes:
+         - ./mysql_data:/bitnami/mysql/data
+      environment:
+         - ALLOW_EMPTY_PASSWORD=yes
+         - MYSQL_USER=root
+      networks:
+         - app-tier
