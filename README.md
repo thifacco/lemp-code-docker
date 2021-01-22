@@ -10,21 +10,12 @@ cd lemp-env-docker
 docker-compose up -d
 ```
 
-## Criar o banco de dados `chatbot_api`
-Opção 1: criar o DB diretamente pelo container do docker
+## Conectar no MySQL pelo container
 ```
 docker-compose exec mysql bash
 cd /bitnami/mysql
 mysql -u root -p
-create database chatbot_api;
-```
-
-Opção 2: criar o DB através de um client MySQL
-```
-host: 127.0.0.1
-port: 3306
-user: root
-pass: 
+[senha vazia]
 ```
 
 ## Referências
