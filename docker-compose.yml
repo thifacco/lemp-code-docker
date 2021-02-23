@@ -11,7 +11,7 @@ networks:
 ### Volumes setup ######################################################
 
 volumes: 
-   phpfpm:
+   php-fpm:
    nginx:
    mysql:
 
@@ -21,7 +21,7 @@ services:
 
 ### PHP-FPM ############################################################
 
-   phpfpm:
+   php-fpm:
       image: 'bitnami/php-fpm:latest'
       networks:
          - app-tier
@@ -33,7 +33,7 @@ services:
    nginx:
       image: 'bitnami/nginx:latest'
       depends_on:
-         - phpfpm
+         - php-fpm
       networks:
          - app-tier
       ports:
